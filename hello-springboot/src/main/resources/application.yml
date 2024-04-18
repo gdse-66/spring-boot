@@ -1,0 +1,20 @@
+#spring:
+#  application:
+#    name: hello-springboot
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/gdse66_springboot?createDatabaseIfNotExist=true
+#    username: root
+#    password: MYsql@123@
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    hikari:
+#      maximum-pool-size: 20
+#  jpa:
+#    database-platform: org.hibernate.dialect.MySQLDialect
+#    generate-ddl: true
+#    show-sql: true
+#    database: mysql
+#
+#server:
+#  port: 8081
+#  servlet:
+#    context-path: /app
