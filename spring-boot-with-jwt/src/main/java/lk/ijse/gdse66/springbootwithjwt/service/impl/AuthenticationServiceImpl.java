@@ -31,18 +31,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public JwtAuthResponse signIn(SignInRequest signInRequest) {
-        Authentication authentication = authenticationManager
-                .authenticate(new
-                        UsernamePasswordAuthenticationToken(
-                                signInRequest.getEmail(),
-                        signInRequest.getPassword()));
-        UserEntity user = userRepo.findByEmail(signInRequest.
-                        getEmail()).orElseThrow(() ->
-                        new UsernameNotFoundException(
-                                "user not found"));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getEmail(), signInRequest.getPassword()));
+        UserEntity user = userRepo.findByEmail(signInRequest.getEmail())
+                .orElseThrow(() -> new UsernameNotFoundException("user not found"));
         String generatedToken = jwtService.generateToken(user);
-        return JwtAuthResponse.builder().token(generatedToken)
-                .build();
+        return JwtAuthResponse.builder().token(generatedToken).build();
     }
 
     @Override
@@ -55,8 +48,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .password(passwordEncoder.encode(signUpRequest.getPassword()))
                 .role(Role.valueOf(signUpRequest.getRole()))
                 .build();
-        UserEntity savedUser = userRepo.save(mapper.map(
-                userDTO, UserEntity.class));
+        UserEntity savedUser = userRepo.save(mapper.map(userDTO, UserEntity.class));
         String generatedToken = jwtService.generateToken(savedUser);
         return JwtAuthResponse.builder().token(generatedToken).build();
     }

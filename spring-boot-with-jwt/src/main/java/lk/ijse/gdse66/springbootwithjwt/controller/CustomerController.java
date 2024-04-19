@@ -21,7 +21,6 @@ public class CustomerController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     List<CustomerDTO> getAllCustomers(){
-        System.out.println("request received");
         return customerService.getAllCustomers();
     }
 
