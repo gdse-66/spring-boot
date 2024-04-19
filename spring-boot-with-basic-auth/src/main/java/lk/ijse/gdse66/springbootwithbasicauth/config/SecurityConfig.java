@@ -17,20 +17,20 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    // configure security filters in security filter chain
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().authenticated()
-                )
-                .httpBasic(Customizer.withDefaults());
+                .csrf(AbstractHttpConfigurer::disable) // disable CSRF protection
+                .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated()) // authenticate any HTTP request
+                .httpBasic(Customizer.withDefaults()); // authenticate using basic authenticate (with default customization for it)
         return http.build();
     }
 
+    //create a simple user details service that stores in memory.
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails userDetails = User.withDefaultPasswordEncoder()
+        UserDetails userDetails = User.withDefaultPasswordEncoder() // encode password before saving in memory
                 .username("Kasun")
                 .password("abcd")
                 .roles("USER")
